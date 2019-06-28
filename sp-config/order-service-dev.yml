@@ -1,0 +1,40 @@
+spring:
+  application:
+    name: order-service
+    
+#server:
+#  port: 8201
+  
+#eureka注册配置
+#将本项目向两个eureka服务器进行注册
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka1:2001/eureka,http://eureka1:2001/eureka
+
+#打开hystix
+feign:
+  hystrix:
+    enabled: true
+
+#暴露端点    
+management:
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream
+
+#做集群
+---
+spring:
+  profiles: order1
+  
+server:
+  port: 8201
+  
+---
+spring:
+  profiles: order2
+  
+server:
+  port: 8202
